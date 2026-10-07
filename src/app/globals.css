@@ -195,6 +195,11 @@
   .card-stage .bottle { height: 250px; width: auto; }
   .card-stage .photo { position: relative; width: 100%; height: 100%; }
   .card-stage .photo img { object-fit: contain; }
+  /* product image hover zoom */
+  .card-stage { z-index: 1; overflow: hidden; }
+  .card-stage .photo img, .card-stage .bottle, .pdp-stage img, .pdp-stage .bottle { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .card-stage:hover .photo img, .card-stage:hover .bottle { transform: scale(1.06); }
+  .pdp-stage:hover img, .pdp-stage:hover .bottle { transform: scale(1.05); }
   .card-tag {
     position: absolute; top: 0; left: 0; font-size: 9px; letter-spacing: .26em; text-transform: uppercase;
     color: var(--color-gold); border: 1px solid var(--color-line); padding: 5px 10px; z-index: 1; background: rgba(7,6,10,.6);

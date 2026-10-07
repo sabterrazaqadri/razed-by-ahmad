@@ -29,7 +29,7 @@ export function ProductCard({
 
   return (
     <article className="card" data-testid="product-card">
-      <div className="card-stage">
+      <Link className="card-stage" href={href} tabIndex={-1} aria-hidden="true">
         {product.badge && <span className="card-tag">{product.badge}</span>}
         <ProductMedia
           src={product.images[0]}
@@ -38,7 +38,7 @@ export function ProductCard({
           sizes={sizes}
           priority={priority}
         />
-      </div>
+      </Link>
       <div className="card-top">
         <div>
           <h3>
