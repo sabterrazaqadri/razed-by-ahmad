@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { BottleArt } from "@/components/BottleArt";
 import { NoteLadder } from "@/components/NoteLadder";
@@ -16,7 +17,7 @@ export const revalidate = 3600;
 export async function generateMetadata(): Promise<Metadata> {
   const { data: s } = await getSettings();
   return {
-    title: { absolute: "Razed by Ahmad — Extrait de Parfum, Karachi" },
+    title: { absolute: "Razed by Ahmad — Extrait de Parfum, Pakistan" },
     description: s.hero_sub ?? undefined,
     alternates: { canonical: "/" },
     openGraph: { title: `Razed by Ahmad — ${plainHeadline(s.hero_headline ?? "Extrait de parfum")}`, url: "/" },
@@ -43,7 +44,6 @@ export default async function HomePage() {
     new Set(products.flatMap((p) => [p.notes_base[0], p.notes_heart[0], p.notes_top[0]]).filter(Boolean)),
   ).slice(0, 8);
 
-  const freeDay = dayName(schedule.freeDeliveryDay);
   const spinDay = dayName(schedule.spinnerDay);
   const contactUrl = buildWhatsAppUrl(settings.whatsapp_number, "Assalam o Alaikum — Razed by Ahmad");
   const count = products.length;
@@ -55,7 +55,7 @@ export default async function HomePage() {
         <div className="hero-glow" aria-hidden="true" />
         <div className="wrap">
           <div className="hero-copy">
-            <span className="eyebrow">Extrait de parfum · Karachi</span>
+            <span className="eyebrow">Extrait de parfum · Pakistan</span>
             <h1 className="display h1">
               <RichHeadline text={settings.hero_headline ?? "What stays\nafter the *fire*"} />
             </h1>
@@ -151,6 +151,22 @@ export default async function HomePage() {
                   sizes="(max-width: 820px) 100vw, 33vw"
                 />
               ))}
+              {grid.length < 3 && (
+                <Link
+                  href="/collection"
+                  className="collection-fill"
+                  style={{ gridColumn: `span ${3 - grid.length}` }}
+                  aria-label="View the full collection"
+                >
+                  <Image
+                    src="/Collection.png"
+                    alt="The Razed by Ahmad collection — 7°, On My Way and Scent Me to Sleep"
+                    fill
+                    sizes="(max-width: 820px) 100vw, 66vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                </Link>
+              )}
             </div>
           ) : (
             <p className="empty">The collection is being restocked. Message us on WhatsApp for the current batch.</p>
@@ -161,31 +177,22 @@ export default async function HomePage() {
       {/* ── free delivery panel ──────────────── */}
       <section style={{ paddingBottom: "clamp(64px,9vw,132px)" }}>
         <div className="wrap">
-          <div className={`monday${schedule.freeDeliveryToday ? " is-live" : ""}`} data-testid="delivery-panel">
+          <div className="monday is-live" data-testid="delivery-panel">
             <div className="monday-mark">
-              {DAY_SHORT[schedule.freeDeliveryDay]}
-              <small>{schedule.freeDeliveryToday ? "Today" : "Every week"}</small>
+              Free
+              <small>Every day</small>
             </div>
             <div>
-              <h3 className="display">
-                {schedule.freeDeliveryToday ? "Delivery is on us today." : `Every ${freeDay}, delivery is on us.`}
-              </h3>
+              <h3 className="display">Delivery is on us, every day.</h3>
               <p className="lede" style={{ maxWidth: "40ch" }}>
-                {schedule.freeDeliveryToday
-                  ? "Order any time before midnight and we cover nationwide delivery — no code, no minimum. It is already on your WhatsApp order."
-                  : `Place an order any ${freeDay} and we cover nationwide delivery — no code, no minimum. It is applied automatically and shown on your WhatsApp order.`}
+                Order any day of the week and we cover nationwide delivery — no code, no minimum. It is applied
+                automatically and shown on your WhatsApp order.
               </p>
               <ul className="week" aria-label="This week">
                 {WEEK_ORDER.map((d) => {
-                  const cls = [
-                    d === schedule.freeDeliveryDay ? "on" : "",
-                    schedule.spinnerEnabled && d === schedule.spinnerDay && d !== schedule.freeDeliveryDay ? "sat" : "",
-                    d === schedule.today ? "today" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ");
+                  const cls = ["on", d === schedule.today ? "today" : ""].filter(Boolean).join(" ");
                   const note = [
-                    d === schedule.freeDeliveryDay ? "free delivery" : "",
+                    "free delivery",
                     schedule.spinnerEnabled && d === schedule.spinnerDay ? "gift spin" : "",
                     d === schedule.today ? "today" : "",
                   ]
@@ -194,22 +201,21 @@ export default async function HomePage() {
                   return (
                     <li
                       key={d}
-                      className={cls || undefined}
+                      className={cls}
                       aria-current={d === schedule.today ? "date" : undefined}
-                      title={note ? `${dayName(d)} — ${note}` : dayName(d)}
+                      title={`${dayName(d)} — ${note}`}
                     >
                       <span aria-hidden="true">{DAY_SHORT[d]}</span>
                       <span className="sr-only">
-                        {dayName(d)}
-                        {note ? ` (${note})` : ""}
+                        {dayName(d)} ({note})
                       </span>
                     </li>
                   );
                 })}
               </ul>
             </div>
-            <Link className={schedule.freeDeliveryToday ? "btn btn-solid" : "btn"} href="/collection">
-              {schedule.freeDeliveryToday ? "Order today" : "Browse the collection"}
+            <Link className="btn btn-solid" href="/collection">
+              Order today
             </Link>
           </div>
         </div>
@@ -292,7 +298,7 @@ export default async function HomePage() {
                 <Paragraphs text={settings.about_text} className="lede" />
               ) : (
                 <p className="lede">
-                  Every extrait is blended, worn and adjusted in Karachi before it is bottled — fifty at a time.
+                  Every extrait is blended, worn and adjusted in Pakistan before it is bottled — fifty at a time.
                 </p>
               )}
               <p className="sig">Ahmad</p>

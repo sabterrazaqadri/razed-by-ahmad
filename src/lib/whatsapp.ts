@@ -33,7 +33,7 @@ export function buildOrderMessage(input: OrderMessageInput): string {
   if (qty > 1) lines.push(`Quantity: ${qty}`);
   lines.push(`Price: ${formatPrice(total, currency)}`);
   if (input.freeDeliveryApplied) {
-    lines.push(`Free ${input.freeDeliveryDayName ?? "Monday"} delivery: applied`);
+    lines.push("Free delivery: applied");
   }
   if (input.spinPrize) {
     lines.push(`${input.spinnerDayName ?? "Saturday"} gift spin: ${input.spinPrize}`);

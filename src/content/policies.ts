@@ -3,7 +3,7 @@
 // This is placeholder wording. Replace it with your real delivery / returns
 // (RTO) policy. Keep each paragraph short. Blank line = new paragraph.
 
-export const DELIVERY_AND_RETURNS = `Orders confirmed on WhatsApp ship within 24 hours. Karachi orders placed before 3 pm can arrive the same day; the rest of Pakistan usually takes 2–4 working days.
+export const DELIVERY_AND_RETURNS = `Orders confirmed on WhatsApp ship within 24 hours. Delivery is free every day, and orders across Pakistan usually arrive within 2–4 working days.
 
 Pay cash on delivery, or by bank transfer / Easypaisa / JazzCash before dispatch. Delivery is free on our weekly free-delivery day; on other days the courier charge is confirmed in the chat.
 

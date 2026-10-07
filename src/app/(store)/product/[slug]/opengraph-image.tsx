@@ -14,7 +14,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const v = p ? defaultVariant(p) : undefined;
   return new ImageResponse(
     <OgCard
-      eyebrow={p ? `Extrait de parfum · ${p.family ?? "Karachi"}` : "Extrait de parfum"}
+      eyebrow={p ? `Extrait de parfum · ${p.family ?? "Pakistan"}` : "Extrait de parfum"}
       title={p?.name ?? "Razed by Ahmad"}
       sub={
         p

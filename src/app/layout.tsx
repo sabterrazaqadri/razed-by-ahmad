@@ -38,11 +38,11 @@ const mark = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Razed by Ahmad — Extrait de Parfum, Karachi",
+    default: "Razed by Ahmad — Extrait de Parfum, Pakistan",
     template: "%s · Razed by Ahmad",
   },
   description:
-    "Six extraits built from smoke, resin and oud. Blended in Karachi in batches of fifty, bottled by hand. Order on WhatsApp — cash on delivery nationwide.",
+    "Extraits built from smoke, resin and oud. Blended in Pakistan in batches of fifty, bottled by hand. Order on WhatsApp — cash on delivery nationwide.",
   applicationName: "Razed by Ahmad",
   openGraph: {
     type: "website",

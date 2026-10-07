@@ -163,7 +163,7 @@ export function ProductForm({ initial }: { initial: ProductInput }) {
         <div style={grid2}>
           <label className="field">
             <span>Name</span>
-            <input className="input" {...nameField} placeholder="e.g. Oud Noir" />
+            <input className="input" {...nameField} placeholder="e.g. On My Way" />
             {err(errors.name?.message)}
           </label>
           <label className="field">
@@ -171,7 +171,7 @@ export function ProductForm({ initial }: { initial: ProductInput }) {
             <input
               className="input"
               {...register("slug", { onChange: () => setSlugTouched(true) })}
-              placeholder="oud-noir"
+              placeholder="on-my-way"
               autoCapitalize="none"
               autoCorrect="off"
             />

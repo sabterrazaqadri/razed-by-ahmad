@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const { data: p } = await getProductBySlug(slug);
   if (!p) return { title: "Fragrance not found", robots: { index: false } };
-  const description = p.tagline ?? `${p.name} — extrait de parfum by Razed by Ahmad, Karachi.`;
+  const description = p.tagline ?? `${p.name} — extrait de parfum by Razed by Ahmad, Pakistan.`;
   return {
     title: p.name,
     description,
@@ -70,13 +70,9 @@ export default async function ProductPage({ params }: { params: Params }) {
 
   const shipRow = (
     <div className="ship-row">
-      {schedule.freeDeliveryToday ? (
-        <span className="live">Free delivery today</span>
-      ) : (
-        <span>Free delivery {dayName(schedule.freeDeliveryDay)}</span>
-      )}
+      <span className="live">Free delivery every day</span>
       <span>Ships in 24 hrs</span>
-      <span>Karachi same-day</span>
+      <span>Delivery across Pakistan</span>
     </div>
   );
 

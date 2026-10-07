@@ -44,7 +44,7 @@ export default async function StoreLayout({ children }: { children: React.ReactN
           name: "Razed by Ahmad",
           url: SITE_URL,
           logo: `${SITE_URL}/icons/icon-512.png`,
-          address: { "@type": "PostalAddress", addressLocality: "Karachi", addressCountry: "PK" },
+          address: { "@type": "PostalAddress", addressCountry: "PK" },
           contactPoint: {
             "@type": "ContactPoint",
             contactType: "sales",

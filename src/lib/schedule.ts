@@ -58,7 +58,8 @@ export function getSchedule(settings: ScheduleSettings, now: Date = new Date()):
     freeDeliveryDay: settings.free_delivery_day,
     spinnerDay: settings.spinner_day,
     spinnerEnabled: settings.spinner_enabled,
-    freeDeliveryToday: settings.free_delivery_day === today,
+    // Free delivery now runs every day of the week.
+    freeDeliveryToday: true,
     spinnerToday: settings.spinner_enabled && settings.spinner_day === today,
   };
 }

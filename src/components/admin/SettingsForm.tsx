@@ -43,7 +43,7 @@ export function SettingsForm({ initial }: { initial: SettingsInput }) {
     }
     const text = buildOrderMessage({
       code: "RZ-TEST",
-      productName: "Oud Noir",
+      productName: "On My Way",
       sizeMl: 50,
       unitPrice: 11500,
       currency: getValues("currency") || "PKR",
@@ -96,14 +96,12 @@ export function SettingsForm({ initial }: { initial: SettingsInput }) {
       </section>
 
       <section className="adm-card" style={{ display: "grid", gap: 16 }}>
-        <h2>Weekly offers (Karachi time)</h2>
+        <h2>Weekly offers (Pakistan time)</h2>
         <div style={grid2}>
-          <label className="field">
-            <span>Free delivery day</span>
-            <select className="input" {...register("free_delivery_day", { valueAsNumber: true })}>
-              {dayOptions}
-            </select>
-          </label>
+          <div className="field">
+            <span>Free delivery</span>
+            <p className="small">Runs every day — applied to every order automatically.</p>
+          </div>
           <label className="field">
             <span>Gift spin day</span>
             <select className="input" {...register("spinner_day", { valueAsNumber: true })}>
@@ -120,8 +118,8 @@ export function SettingsForm({ initial }: { initial: SettingsInput }) {
         <h2>Words on the site</h2>
         <label className="field">
           <span>Announcement bar</span>
-          <input className="input" {...register("announcement_text")} placeholder="Every Monday ships free — the courier is on us" />
-          <span className="hint">On free-delivery day this is replaced automatically with “Free delivery today”.</span>
+          <input className="input" {...register("announcement_text")} placeholder="Free delivery every day — the courier is on us" />
+          <span className="hint">Leave empty to show “Free delivery every day — the courier is on us”.</span>
           {err(errors.announcement_text?.message)}
         </label>
         <label className="field">

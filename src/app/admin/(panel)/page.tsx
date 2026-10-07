@@ -45,12 +45,8 @@ export default async function Dashboard() {
         <div className="adm-card" style={{ marginBottom: 20 }} data-testid="rules-status">
           <h2>Today&rsquo;s rules</h2>
           <p style={{ fontSize: 15, lineHeight: 1.8 }}>
-            Today is <b style={{ fontWeight: 500, color: "var(--color-gold-hi)" }}>{dayName(schedule.today)}</b> in Karachi.{" "}
-            {schedule.freeDeliveryToday ? (
-              <span className="pill green">Free delivery is live</span>
-            ) : (
-              <span className="small">Free delivery runs on {dayName(s.free_delivery_day)}s.</span>
-            )}{" "}
+            Today is <b style={{ fontWeight: 500, color: "var(--color-gold-hi)" }}>{dayName(schedule.today)}</b> in Pakistan.{" "}
+            <span className="pill green">Free delivery is live every day</span>{" "}
             {!s.spinner_enabled ? (
               <span className="pill">Gift spin is switched off</span>
             ) : schedule.spinnerToday ? (

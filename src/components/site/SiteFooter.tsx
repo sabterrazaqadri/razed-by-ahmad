@@ -47,9 +47,9 @@ export function SiteFooter({ whatsappUrl, schedule }: { whatsappUrl: string; sch
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; {year} Razed by Ahmad · Karachi</span>
+          <span>&copy; {year} Razed by Ahmad · Pakistan</span>
           <span>
-            Free delivery every {dayName(schedule.freeDeliveryDay)}
+            Free delivery every day
             {schedule.spinnerEnabled ? ` · Gift spin every ${dayName(schedule.spinnerDay)}` : ""}
           </span>
         </div>

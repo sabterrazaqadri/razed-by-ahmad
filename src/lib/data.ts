@@ -26,7 +26,7 @@ export const DEFAULT_SETTINGS: Settings = {
   announcement_text: null,
   hero_headline: "What stays\nafter the *fire*",
   hero_sub:
-    "Six extraits built from smoke, resin and oud — the notes that keep working long after the top has burned off. Blended in batches of fifty, bottled by hand.",
+    "Extraits built from smoke, resin and oud — the notes that keep working long after the top has burned off. Blended in batches of fifty, bottled by hand.",
   currency: "PKR",
   about_text: null,
   updated_at: new Date(0).toISOString(),
@@ -50,7 +50,7 @@ export function priceRange(p: ProductWithVariants): [number, number] | null {
   return [Math.min(...prices), Math.max(...prices)];
 }
 
-/** "Saffron · Taif rose · Laotian oud" — the lead note of each tier. */
+/** "Sea notes · Rosemary · Incense" — the lead note of each tier. */
 export function leadNotes(p: Pick<Product, "notes_top" | "notes_heart" | "notes_base">): string {
   return [p.notes_top[0], p.notes_heart[0], p.notes_base[0]].filter(Boolean).join(" · ");
 }

@@ -183,6 +183,9 @@
   /* ── product cards ──────────────────────── */
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-line-soft); }
   .grid-3-gap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .collection-fill { position: relative; display: block; min-height: 420px; overflow: hidden; background: var(--color-pitch); }
+  .collection-fill img { transition: transform .6s ease; }
+  .collection-fill:hover img { transform: scale(1.03); }
   .card { background: var(--color-ink); padding: 34px 30px 30px; display: flex; flex-direction: column; position: relative; }
   .card-stage {
     height: 300px; display: flex; align-items: center; justify-content: center; position: relative;
@@ -469,6 +472,7 @@
   .hero-meta div { font-size: 10px; }
 
   .grid-3, .grid-3-gap { grid-template-columns: 1fr; gap: 1px; }
+  .collection-fill { grid-column: auto !important; min-height: 0; aspect-ratio: 1 / 1; }
   .card { padding: 26px 20px 24px; }
   .card-stage { height: 230px; margin-bottom: 20px; }
   .card-stage .bottle { height: 196px; }

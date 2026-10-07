@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Razed by Ahmad",
     short_name: "Razed",
-    description: "Extrait de parfum from Karachi. Order on WhatsApp in two taps.",
+    description: "Extrait de parfum from Pakistan. Order on WhatsApp in two taps.",
     id: "/",
     start_url: "/?source=pwa",
     scope: "/",

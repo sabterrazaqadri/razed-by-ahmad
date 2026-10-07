@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Paragraphs } from "@/components/RichText";
 import { DELIVERY_AND_RETURNS } from "@/content/policies";
-import { getSettings } from "@/lib/data";
-import { dayName, getSchedule } from "@/lib/schedule";
 
 export const revalidate = 3600;
 
@@ -13,9 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/delivery" },
 };
 
-export default async function DeliveryPage() {
-  const { data: settings } = await getSettings();
-  const schedule = getSchedule(settings);
+export default function DeliveryPage() {
   return (
     <>
       <div className="page-head">
@@ -25,9 +21,7 @@ export default async function DeliveryPage() {
           </nav>
           <h1 className="display h2">Delivery &amp; returns</h1>
           <p className="lede" style={{ marginTop: 14 }}>
-            {schedule.freeDeliveryToday
-              ? "Delivery is free today, nationwide."
-              : `Delivery is free every ${dayName(schedule.freeDeliveryDay)}, nationwide.`}
+            Delivery is free every day, nationwide.
           </p>
         </div>
       </div>
