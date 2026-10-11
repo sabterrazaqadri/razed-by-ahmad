@@ -5,7 +5,7 @@
 
 export const DELIVERY_AND_RETURNS = `Orders confirmed on WhatsApp ship within 24 hours. Delivery is free every day, and orders across Pakistan usually arrive within 2–4 working days.
 
-Pay cash on delivery, or by bank transfer / Easypaisa / JazzCash before dispatch. Delivery is free on our weekly free-delivery day; on other days the courier charge is confirmed in the chat.
+Pay cash on delivery, or pay online by bank transfer to Bank Al Habib — Ahmed Raza, account 5045-0044-000937-01-4 — and send the screenshot on WhatsApp. Delivery is free every day.
 
 If a bottle arrives damaged or leaking, send a photo on WhatsApp within 48 hours and we replace it. Because perfume is a personal-care product, opened bottles can't be returned — ask for a sample vial first if you're unsure.`;
 

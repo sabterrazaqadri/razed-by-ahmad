@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BankDetails } from "@/components/BankDetails";
 import { JsonLd } from "@/components/JsonLd";
 import { NoteLadder } from "@/components/NoteLadder";
 import { ProductCard } from "@/components/ProductCard";
@@ -8,7 +9,7 @@ import { Paragraphs } from "@/components/RichText";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { DELIVERY_AND_RETURNS, INGREDIENTS, longevityFor } from "@/content/policies";
-import { getActiveProducts, getProductBySlug, getSettings, priceRange, relatedProducts } from "@/lib/data";
+import { getActiveProducts, getProductBySlug, getSettings, isCombo, priceRange, relatedProducts } from "@/lib/data";
 import { SITE_URL } from "@/lib/env";
 import { dayName, getSchedule } from "@/lib/schedule";
 
@@ -64,7 +65,9 @@ export default async function ProductPage({ params }: { params: Params }) {
 
   const schedule = getSchedule(settings);
   const currency = settings.currency;
-  const related = relatedProducts(all, product, 3);
+  const combo = isCombo(product);
+  const comboItems = all.filter((p) => !isCombo(p));
+  const related = combo ? comboItems.slice(0, 3) : relatedProducts(all, product, 3);
   const range = priceRange(product);
   const familyLabel = product.family ? product.family.charAt(0).toUpperCase() + product.family.slice(1) : "Extrait";
 
@@ -114,12 +117,28 @@ export default async function ProductPage({ params }: { params: Params }) {
               shipRow={shipRow}
             />
 
-            <div className="pdp-ladder">
-              <span className="eyebrow eyebrow-mute" style={{ display: "block", marginBottom: 20 }}>
-                How it wears
-              </span>
-              <NoteLadder top={product.notes_top} heart={product.notes_heart} base={product.notes_base} size="product" />
-            </div>
+            {combo ? (
+              <div className="pdp-ladder">
+                <span className="eyebrow eyebrow-mute" style={{ display: "block", marginBottom: 20 }}>
+                  What&rsquo;s in the box
+                </span>
+                <ul className="combo-list">
+                  {comboItems.map((p) => (
+                    <li key={p.id}>
+                      <Link href={`/product/${p.slug}`}>{p.name}</Link>
+                      <span className="small">50 ml</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div className="pdp-ladder">
+                <span className="eyebrow eyebrow-mute" style={{ display: "block", marginBottom: 20 }}>
+                  How it wears
+                </span>
+                <NoteLadder top={product.notes_top} heart={product.notes_heart} base={product.notes_base} size="product" />
+              </div>
+            )}
 
             <div className="acc">
               {product.description && (
@@ -148,6 +167,12 @@ export default async function ProductPage({ params }: { params: Params }) {
                   <Paragraphs text={DELIVERY_AND_RETURNS} />
                 </div>
               </details>
+              <details>
+                <summary>Pay online</summary>
+                <div className="body">
+                  <BankDetails />
+                </div>
+              </details>
             </div>
           </div>
         </div>
@@ -158,9 +183,9 @@ export default async function ProductPage({ params }: { params: Params }) {
           <div className="wrap">
             <div className="section-head">
               <div>
-                <span className="eyebrow">Wears well with</span>
+                <span className="eyebrow">{combo ? "Or one at a time" : "Wears well with"}</span>
                 <h2 className="display h3" style={{ marginTop: 12 }}>
-                  Layer it
+                  {combo ? "Buy them separately" : "Layer it"}
                 </h2>
               </div>
             </div>
@@ -185,7 +210,9 @@ export default async function ProductPage({ params }: { params: Params }) {
           "@type": "Product",
           name: product.name,
           description: product.tagline ?? product.description ?? undefined,
-          image: product.images.length ? product.images : [`${SITE_URL}/product/${product.slug}/opengraph-image`],
+          image: product.images.length
+            ? product.images.map((src) => (src.startsWith("/") ? `${SITE_URL}${src}` : src))
+            : [`${SITE_URL}/product/${product.slug}/opengraph-image`],
           url: `${SITE_URL}/product/${product.slug}`,
           sku: product.slug,
           category: "Fragrance > Extrait de parfum",

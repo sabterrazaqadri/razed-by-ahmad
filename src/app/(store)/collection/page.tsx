@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import { SortSelect } from "@/components/SortSelect";
-import { FAMILIES, getActiveProducts, getSettings, type ProductWithVariants, type Variant } from "@/lib/data";
+import { FAMILIES, getActiveProducts, isCombo, getSettings, type ProductWithVariants, type Variant } from "@/lib/data";
 import { formatPrice } from "@/lib/format";
 import { getSchedule } from "@/lib/schedule";
 
@@ -81,7 +81,7 @@ export default async function CollectionPage({ searchParams }: { searchParams: S
     sort: SORTS.some((s) => s.key === sortRaw) ? (sortRaw as SortKey) : "featured",
   };
 
-  const sizes = Array.from(new Set(products.flatMap((p) => p.product_variants.map((v) => v.size_ml)))).sort((a, b) => a - b);
+  const sizes = Array.from(new Set(products.filter((p) => !isCombo(p)).flatMap((p) => p.product_variants.map((v) => v.size_ml)))).sort((a, b) => a - b);
 
   let rows = products
     .filter((p) => !state.family.length || (p.family && state.family.includes(p.family)))
@@ -136,7 +136,7 @@ export default async function CollectionPage({ searchParams }: { searchParams: S
           </nav>
           <h1 className="display h2">The collection</h1>
           <p className="lede" style={{ marginTop: 14 }}>
-            {products.length ? `${products.length} extraits. ` : ""}Each one is blended to sit on skin for a working day,
+            {products.some((p) => !isCombo(p)) ? `${products.filter((p) => !isCombo(p)).length} extraits. ` : ""}Each one is blended to sit on skin for a working day,
             not a photograph.
           </p>
         </div>

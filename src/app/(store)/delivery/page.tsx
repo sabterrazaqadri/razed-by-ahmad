@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BankDetails } from "@/components/BankDetails";
 import { Paragraphs } from "@/components/RichText";
 import { DELIVERY_AND_RETURNS } from "@/content/policies";
 
@@ -29,6 +30,10 @@ export default function DeliveryPage() {
         <div className="lede" style={{ maxWidth: "62ch", color: "var(--color-bone)" }}>
           <Paragraphs text={DELIVERY_AND_RETURNS} />
         </div>
+        <h2 className="display h3" style={{ marginTop: 48, marginBottom: 18 }} id="pay-online">
+          Pay online
+        </h2>
+        <BankDetails />
       </div>
     </>
   );

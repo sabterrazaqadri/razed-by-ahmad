@@ -41,7 +41,7 @@ export const productSchema = z
     is_active: z.boolean(),
     is_featured: z.boolean(),
     sort_order: z.number({ error: "Enter a number" }).int().min(-9999).max(9999),
-    images: z.array(z.string().url()).max(12, "Twelve images at most"),
+    images: z.array(z.union([z.string().url(), z.string().regex(/^\/[^/]/, "Must be a URL or a /public path")])).max(12, "Twelve images at most"),
     variants: z.array(variantSchema).min(1, "Add at least one size"),
   })
   .superRefine((p, ctx) => {

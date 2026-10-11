@@ -1,6 +1,7 @@
 // Pure builders for the pre-filled WhatsApp order message. No I/O here —
 // everything is passed in so it can be unit-tested and reused client-side.
 
+import { BANK_ACCOUNT } from "@/content/payment";
 import { formatPrice } from "./format";
 
 export type OrderMessageInput = {
@@ -39,6 +40,12 @@ export function buildOrderMessage(input: OrderMessageInput): string {
     lines.push(`${input.spinnerDayName ?? "Saturday"} gift spin: ${input.spinPrize}`);
   }
   lines.push("", "Name:", "Address:", "City:");
+  lines.push(
+    "",
+    "Paying online? (optional)",
+    `${BANK_ACCOUNT.bank} — ${BANK_ACCOUNT.name}`,
+    `A/C: ${BANK_ACCOUNT.number}`,
+  );
   return lines.join("\n");
 }
 

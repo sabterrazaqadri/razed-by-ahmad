@@ -8,7 +8,8 @@ import { ProductMedia } from "@/components/ProductMedia";
 import { Paragraphs, RichHeadline, plainHeadline } from "@/components/RichText";
 import { WaIcon } from "@/components/WaIcon";
 import { Wheel } from "@/components/Wheel";
-import { getActivePrizes, getActiveProducts, getSettings } from "@/lib/data";
+import { defaultVariant, getActivePrizes, getActiveProducts, getSettings, isCombo } from "@/lib/data";
+import { formatPrice } from "@/lib/format";
 import { DAY_SHORT, WEEK_ORDER, dayName, getSchedule } from "@/lib/schedule";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -27,12 +28,15 @@ export async function generateMetadata(): Promise<Metadata> {
 const NUMBER_WORDS = ["None", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
 
 export default async function HomePage() {
-  const [{ data: settings }, { data: products }, { data: prizes }] = await Promise.all([
+  const [{ data: settings }, { data: allProducts }, { data: prizes }] = await Promise.all([
     getSettings(),
     getActiveProducts(),
     getActivePrizes(),
   ]);
   const schedule = getSchedule(settings);
+  const comboProduct = allProducts.find(isCombo);
+  const comboVariant = comboProduct ? defaultVariant(comboProduct) : undefined;
+  const products = allProducts.filter((p) => !isCombo(p));
   const currency = settings.currency;
 
   const featured = products.filter((p) => p.is_featured);
@@ -173,6 +177,51 @@ export default async function HomePage() {
           )}
         </div>
       </section>
+
+      {/* ── combo offer ──────────────────────── */}
+      {comboProduct && comboVariant && (
+        <section style={{ paddingBottom: "clamp(40px,6vw,80px)" }} data-testid="combo-offer">
+          <div className="wrap">
+            <div className="combo">
+              <Link href={`/product/${comboProduct.slug}`} className="combo-media" tabIndex={-1} aria-hidden="true">
+                <Image
+                  src="/Collection.png"
+                  alt=""
+                  fill
+                  sizes="(max-width: 820px) 100vw, 50vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </Link>
+              <div className="combo-copy">
+                <span className="eyebrow">Combo offer</span>
+                <h2 className="display h2" style={{ margin: "14px 0 16px" }}>
+                  All three, <em>one box</em>
+                </h2>
+                <p className="lede">
+                  {products.map((p) => p.name).join(", ").replace(/, ([^,]*)$/, " and $1")} — together, with free delivery.
+                </p>
+                <p className="combo-price">
+                  {comboVariant.compare_at_price && (
+                    <s>{formatPrice(Number(comboVariant.compare_at_price), currency)}</s>
+                  )}
+                  <b>{formatPrice(Number(comboVariant.price), currency)}</b>
+                  {comboVariant.compare_at_price && (
+                    <span className="small">
+                      You save {formatPrice(Number(comboVariant.compare_at_price) - Number(comboVariant.price), currency)}
+                    </span>
+                  )}
+                </p>
+                <div className="hero-actions">
+                  <Link className="btn btn-solid" href={`/product/${comboProduct.slug}`}>
+                    Get the combo
+                  </Link>
+                </div>
+                <p className="small" style={{ marginTop: 16 }}>Free delivery included · Cash on delivery or bank transfer</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── free delivery panel ──────────────── */}
       <section style={{ paddingBottom: "clamp(64px,9vw,132px)" }}>

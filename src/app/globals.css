@@ -214,6 +214,28 @@
   .grid-3-gap .card-foot { flex-direction: column; align-items: stretch; gap: 12px; }
   .grid-3-gap .card-foot .btn { width: 100%; }
 
+  /* ── combo offer ────────────────────────── */
+  .combo { display: grid; grid-template-columns: 1.1fr .9fr; border: 1px solid var(--color-gold); background: linear-gradient(120deg, rgba(198,161,91,.10), transparent 60%); }
+  .combo-media { position: relative; display: block; min-height: 440px; overflow: hidden; }
+  .combo-media img { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .combo-media:hover img { transform: scale(1.04); }
+  .combo-copy { padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; }
+  .combo-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 14px; margin: 22px 0 26px; }
+  .combo-price s { color: var(--color-mute); font-size: 18px; }
+  .combo-price b { font-family: var(--font-display); font-weight: 400; font-size: 40px; color: var(--color-gold-hi); }
+  .combo-list { list-style: none; padding: 0; margin: 0; }
+  .combo-list li { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--color-line-soft); font-family: var(--font-display); font-size: 22px; }
+  .combo-list a:hover { color: var(--color-gold-hi); }
+
+  /* ── bank details ───────────────────────── */
+  .bank { border: 1px solid var(--color-line); padding: 22px 24px; max-width: 520px; }
+  .bank p { margin-bottom: 16px; }
+  .bank dl { display: grid; gap: 10px; margin: 0; }
+  .bank dl div { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .bank dt { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--color-mute); }
+  .bank dd { margin: 0; color: var(--color-bone); }
+  .bank-num { font-variant-numeric: tabular-nums; letter-spacing: .04em; color: var(--color-gold-hi) !important; user-select: all; }
+
   /* ── Monday panel ───────────────────────── */
   .monday { border: 1px solid var(--color-line); display: grid; grid-template-columns: auto 1fr auto; gap: 44px; align-items: center; padding: 46px 48px; background: linear-gradient(120deg, rgba(198,161,91,.07), transparent 55%); }
   .monday.is-live { border-color: var(--color-gold); background: linear-gradient(120deg, rgba(198,161,91,.16), transparent 60%); }
@@ -478,6 +500,8 @@
 
   .grid-3, .grid-3-gap { grid-template-columns: 1fr; gap: 1px; }
   .collection-fill { grid-column: auto !important; min-height: 0; aspect-ratio: 1 / 1; }
+  .combo { grid-template-columns: 1fr; }
+  .combo-media { min-height: 0; aspect-ratio: 1 / 1; }
   .card { padding: 26px 20px 24px; }
   .card-stage { height: 230px; margin-bottom: 20px; }
   .card-stage .bottle { height: 196px; }

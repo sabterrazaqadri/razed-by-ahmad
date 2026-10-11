@@ -14,6 +14,12 @@ export type Prize = Tables<"spin_prizes">;
 
 export type Result<T> = { data: T; error: string | null };
 
+/** The "all three" bundle. It is a normal product row, kept out of counts and note lists. */
+export const COMBO_SLUG = "combo-pack";
+export function isCombo(p: Pick<Product, "slug">): boolean {
+  return p.slug === COMBO_SLUG;
+}
+
 export const FAMILIES = ["oud", "amber", "floral", "musk", "smoke"] as const;
 export type Family = (typeof FAMILIES)[number];
 
